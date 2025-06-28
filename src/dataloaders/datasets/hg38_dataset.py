@@ -209,7 +209,8 @@ class HG38Dataset(torch.utils.data.Dataset):
         seq = torch.LongTensor(seq)
 
         # replace N token with a pad token, so we can ignore it in the loss
-        seq = self.replace_value(seq, self.tokenizer._vocab_str_to_int["N"], self.tokenizer.pad_token_id)
+        # seq = self.replace_value(seq, self.tokenizer._vocab_str_to_int["N"], self.tokenizer.pad_token_id)
+        seq = seq.fill_(self.tokenizer.pad_token_id)
 
         if self.mlm:
             data, target = mlm_getitem(
